@@ -1,14 +1,9 @@
-from colorama import Fore, Back, Style
-expression = input( Back.WHITE + Fore.GREEN + "Введите выражение(a+b): " + Fore.BLUE )
-result = 0.0
-if expression[1] == '+':
-    result = int(expression[0]) + int(expression[2])
-elif expression[1] == '-':
-    result = int(expression[0]) - int(expression[2])
-elif expression[1] == '*':
-    result = int(expression[0]) * int(expression[2])
-elif expression[1] == '/':
-    result = int(expression[0]) / int(expression[2])
-else:
-    print( Fore.RED + "Не тот знак" )
-print( Fore.YELLOW + " = " + str(result) )
+import pyowm
+
+owm = pyowm.OWM('9e90534b10819f0532b3286f4d94f12f', language = "ru")
+
+place = input("В каком городе показать погоду?: ")
+
+observation = owm.weather_at_place(place)
+w = observation.get_weather()
+print(w)
