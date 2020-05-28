@@ -1,4 +1,5 @@
 import mysql.connector
+import json
 
 context = mysql.connector.connect(
     user = "pyuser",password="user",
@@ -8,8 +9,16 @@ context = mysql.connector.connect(
 cursor = context.cursor()
 
 cursor.execute("SELECT Login,RealName,Email FROM Users")
+tempArr = []
 for (Login,RealName,Email) in cursor:
-    print("Login: {Login}, RealName: {RealName}, Email: {Email}".format(Login=Login,RealName=RealName,Email=Email) )
+    tempArr.append({
+        "Login" : Login,
+        "RealName" : RealName,
+        "Email" : Email
+    })
+    #print("Login: {Login}, RealName: {RealName}, Email: {Email}".format(Login=Login,RealName=RealName,Email=Email) )
+
+print( json.dumps( tempArr ) )
 
 cursor.close()
 context.close()
