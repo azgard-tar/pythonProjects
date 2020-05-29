@@ -8,17 +8,14 @@ context = mysql.connector.connect(
 
 cursor = context.cursor()
 
-cursor.execute("SELECT Login,RealName,Email FROM Users")
-tempArr = []
-for (Login,RealName,Email) in cursor:
-    tempArr.append({
-        "Login" : Login,
-        "RealName" : RealName,
-        "Email" : Email
-    })
-    #print("Login: {Login}, RealName: {RealName}, Email: {Email}".format(Login=Login,RealName=RealName,Email=Email) )
-
-print( json.dumps( tempArr ) )
+cursor.execute("SELECT Login,RealName,Email FROM Users where Id = " + str(1) )
+obj = cursor.fetchone()
+ret = {
+    "Login" : obj[0],
+    "RealName" : obj[1],
+    "Email" : obj[2]
+}
+print( json.dumps( ret ) )
 
 cursor.close()
 context.close()
